@@ -7,21 +7,21 @@
 To use the `BottomSheet` component, you first need to install the package via npm or yarn. Run either of the following commands:
 
 ```sh
-npm install @bayudev/react-native-modal-dialog
+npm install @bayudev/react-native-bottom-sheet
 ```
 
 ```sh
-yarn add @bayudev/react-native-modal-dialog
+yarn add @bayudev/react-native-bottom-sheet
 ```
 
 🚨 🚨 Please note that this library is built with React Native Reanimated v3 and uses React Native Gesture Handler. If you haven't installed Reanimated and Gesture Handler yet, please follow the installation instructions for [Reanimated](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation) and [Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/docs/).
 
 ## Usage
 
-First, import the `BottomSheet` component from the `@bayudev/react-native-modal-dialog` library:
+First, import the `BottomSheet` component from the `@bayudev/react-native-bottom-sheet` library:
 
 ```javascript
-import { BottomSheet } from '@bayudev/react-native-modal-dialog';
+import { BottomSheet } from '@bayudev/react-native-bottom-sheet';
 ```
 
 ```javascript
@@ -29,7 +29,7 @@ import { StatusBar } from "expo-status-bar";
 import { useCallback, useRef } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { BottomSheet, BottomSheetMethods } from "@bayudev/react-native-modal-dialog";
+import { BottomSheet, BottomSheetMethods } from "@bayudev/react-native-bottom-sheet";
 
 export default function App() {
   const ref = useRef<BottomSheetMethods>(null);
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     <td align="center">
       <p></p>
       <a href="https://github.com/bayuhendrianto">
-        <pre><img src="https://avatars.githubusercontent.com/u/40142196?v=4" style="position: relative; width: 128px; margin-bottom: 80x; border-radius: 10px;" alt=""/><br/><br/>Bayu Hendrianto</pre>
+        <pre><img src="https://avatars.githubusercontent.com/u/40142196?v=4" width="96px" alt=""/><br/><br/>Bayu Hendrianto</pre>
       </a>
     </td>
   </tr>
