@@ -2,6 +2,7 @@ import React, {
   ReactNode,
   forwardRef,
   useCallback,
+  useEffect,
   useImperativeHandle,
 } from "react";
 import {
@@ -9,6 +10,10 @@ import {
   StyleSheet,
   Dimensions,
   TouchableWithoutFeedback,
+  Image,
+  Text,
+  Pressable,
+  TouchableOpacity,
 } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
@@ -22,12 +27,31 @@ import { BottomSheetMethods, BottomSheetProps } from "./types";
 
 const { height } = Dimensions.get("screen");
 export const BottomSheet = forwardRef<BottomSheetMethods, BottomSheetProps>(
-  ({ heightValue = 50, children }: BottomSheetProps, ref) => {
+  (
+    {
+      heightValue = 50,
+      isCloseIcon = false,
+      closeIcon,
+      iconPosition = "right",
+      isTitle = false,
+      title = "bottom sheet",
+      closeIconColor = "red",
+      titleStyle,
+      children,
+    }: BottomSheetProps,
+    ref
+  ) => {
     const closeHeight = height;
     const percentage = heightValue / 100;
     const openHeight = height - height * percentage;
     const topAnimation = useSharedValue(closeHeight);
     const context = useSharedValue(0);
+    const CLOSE_ICON = closeIcon ?? (
+      <Image
+        source={require("../../assets/close.png")}
+        style={{ width: 20, height: 20, tintColor: closeIconColor }}
+      />
+    );
 
     const gesture = Gesture.Pan()
       .onStart(() => {
@@ -76,6 +100,18 @@ export const BottomSheet = forwardRef<BottomSheetMethods, BottomSheetProps>(
       };
     });
 
+    const ICON_POSITION =
+      iconPosition === "left"
+        ? StyleSheet.create({
+            position: {
+              left: 0,
+            },
+          })
+        : StyleSheet.create({
+            position: {
+              right: 0,
+            },
+          });
     return (
       <>
         <Backdrop
@@ -86,8 +122,70 @@ export const BottomSheet = forwardRef<BottomSheetMethods, BottomSheetProps>(
         />
         <GestureDetector gesture={gesture}>
           <Animated.View style={[styles.container, animationStyle]}>
-            <View style={styles.line}></View>
-            <View style={styles.divider}></View>
+            {isCloseIcon ? (
+              <View>
+                <View
+                  style={[
+                    {
+                      position: "absolute",
+                      zIndex: 1,
+                      flex: 1,
+                      alignSelf: "flex-end",
+                      margin: 5,
+                      top: 5,
+                      padding: 5,
+                      maxWidth: 60,
+                      maxHeight: 60,
+                    },
+                    ICON_POSITION.position,
+                  ]}
+                >
+                  <TouchableOpacity
+                    onPress={hide}
+                    style={{ maxWidth: 50, maxHeight: 50 }}
+                  >
+                    {CLOSE_ICON}
+                  </TouchableOpacity>
+                </View>
+                {isTitle ? (
+                  <Text
+                    style={[
+                      titleStyle
+                        ? titleStyle
+                        : {
+                            textAlign: "center",
+                            fontSize: 22,
+                            marginVertical: 10,
+                          },
+                    ]}
+                  >
+                    {title}
+                  </Text>
+                ) : (
+                  <View style={styles.line}></View>
+                )}
+              </View>
+            ) : isTitle ? (
+              <Text
+                style={[
+                  titleStyle
+                    ? titleStyle
+                    : { textAlign: "center", fontSize: 22, marginVertical: 10 },
+                ]}
+              >
+                {title}
+              </Text>
+            ) : (
+              <View style={styles.line}></View>
+            )}
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View style={styles.divider}></View>
+            </View>
             {children}
           </Animated.View>
         </GestureDetector>
@@ -136,15 +234,15 @@ const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "#ffffff",
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+    borderTopRightRadius: 25,
+    borderTopLeftRadius: 25,
   },
   line: {
     width: 100,
     height: 8,
     backgroundColor: "grey",
     alignSelf: "center",
-    marginVertical: 15,
+    marginVertical: 20,
     borderRadius: 5,
   },
   divider: {
