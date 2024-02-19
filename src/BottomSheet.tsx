@@ -48,7 +48,7 @@ export const BottomSheet = forwardRef<BottomSheetMethods, BottomSheetProps>(
     const context = useSharedValue(0);
     const CLOSE_ICON = closeIcon ?? (
       <Image
-        source={require("../../assets/close.png")}
+        source={require("../assets/close.png")}
         style={{ width: 20, height: 20, tintColor: closeIconColor }}
       />
     );
