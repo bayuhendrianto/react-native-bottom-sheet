@@ -1,6 +1,6 @@
 {
   "name": "@bayudev/react-native-bottom-sheet",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/bayuhendrianto/react-native-bottom-sheet",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bayuhendrianto/react-native-bottom-sheet"
+    "url": "git+https://github.com/bayuhendrianto/react-native-bottom-sheet.git"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
