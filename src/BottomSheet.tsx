@@ -68,10 +68,18 @@ export const BottomSheet = forwardRef<BottomSheetMethods, BottomSheetProps>(
             damping: 50,
             stiffness: 200,
           });
+          handleEvent({
+            show: false,
+            hide: true,
+          });
         } else {
           topAnimation.value = withSpring(openHeight, {
             damping: 50,
             stiffness: 200,
+          });
+          handleEvent({
+            show: true,
+            hide: false,
           });
         }
       });
