@@ -11,6 +11,7 @@ export interface BottomSheetProps {
   title?: string;
   titleStyle?: TextStyle;
   children?: ReactNode | undefined;
+  setTriggerEvent?: any;
 }
 
 export interface BottomSheetMethods {
