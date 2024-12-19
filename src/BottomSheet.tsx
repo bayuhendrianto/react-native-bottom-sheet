@@ -38,7 +38,6 @@ export const BottomSheet = forwardRef<BottomSheetMethods, BottomSheetProps>(
       closeIconColor = "red",
       titleStyle,
       children,
-      setTriggerEvent,
     }: BottomSheetProps,
     ref
   ) => {
@@ -68,18 +67,10 @@ export const BottomSheet = forwardRef<BottomSheetMethods, BottomSheetProps>(
             damping: 50,
             stiffness: 200,
           });
-          handleEvent({
-            show: false,
-            hide: true,
-          });
         } else {
           topAnimation.value = withSpring(openHeight, {
             damping: 50,
             stiffness: 200,
-          });
-          handleEvent({
-            show: true,
-            hide: false,
           });
         }
       });
@@ -90,10 +81,6 @@ export const BottomSheet = forwardRef<BottomSheetMethods, BottomSheetProps>(
         damping: 50,
         stiffness: 200,
       });
-      handleEvent({
-        show: true,
-        hide: false,
-      });
     }, [openHeight, closeHeight]);
 
     const hide = useCallback(() => {
@@ -102,18 +89,7 @@ export const BottomSheet = forwardRef<BottomSheetMethods, BottomSheetProps>(
         damping: 50,
         stiffness: 200,
       });
-      handleEvent({
-        show: false,
-        hide: true,
-      });
     }, [openHeight, closeHeight]);
-
-    const handleEvent = useCallback(
-      ({ show, hide }: { show: boolean; hide: boolean }) => {
-        setTriggerEvent && setTriggerEvent({ show, hide });
-      },
-      []
-    );
 
     useImperativeHandle(ref, () => ({ show, hide }), [show, hide]);
 
